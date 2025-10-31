@@ -1,48 +1,101 @@
 body {
-    font-family: 'Arial', sans-serif;
-    display: flex; /* Untuk menempatkan konten di tengah */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6; /* Latar belakang yang lembut */
+    display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
     margin: 0;
-    transition: background-color 0.5s ease; /* Transisi yang halus saat warna berubah */
-    background-color: #f0f0f0; /* Warna latar belakang default */
+    padding-top: 50px;
 }
 
 .container {
-    text-align: center;
-    background-color: white;
-    padding: 40px 60px;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Efek bayangan yang elegan */
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
 }
 
 h1 {
+    text-align: center;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #5cb85c;
+    padding-bottom: 10px;
 }
 
-p {
-    color: #666;
-    margin-bottom: 30px;
+/* Bagian Input */
+.input-group {
+    display: flex;
+    margin-bottom: 20px;
 }
 
-#tombolUbahWarna {
-    padding: 12px 25px;
+#inputTugas {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
     font-size: 16px;
-    color: white;
-    background-color: #007bff; /* Warna tombol yang menarik */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     outline: none;
-    transition: background-color 0.3s, transform 0.1s; /* Efek transisi tombol */
 }
 
-#tombolUbahWarna:hover {
-    background-color: #0056b3; /* Warna saat kursor di atas tombol */
+#tombolTambah {
+    padding: 10px 15px;
+    background-color: #5cb85c; /* Warna hijau yang menarik */
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-#tombolUbahWarna:active {
-    transform: scale(0.98); /* Efek penekanan tombol */
+#tombolTambah:hover {
+    background-color: #4cae4c;
+}
+
+/* Bagian Daftar Tugas */
+#daftarTugas {
+    list-style: none;
+    padding: 0;
+}
+
+#daftarTugas li {
+    background: #f9f9f9;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#daftarTugas li:hover {
+    background-color: #ededed;
+}
+
+/* Status Selesai */
+.selesai {
+    text-decoration: line-through;
+    color: #999;
+    background-color: #e8e8e8 !important; /* Latar belakang untuk tugas selesai */
+}
+
+/* Tombol Hapus */
+.tombolHapus {
+    background: #d9534f; /* Warna merah */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 12px;
+}
+
+.tombolHapus:hover {
+    background-color: #c9302c;
 }
