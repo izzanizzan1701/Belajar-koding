@@ -1,0 +1,48 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex; /* Untuk menempatkan konten di tengah */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    transition: background-color 0.5s ease; /* Transisi yang halus saat warna berubah */
+    background-color: #f0f0f0; /* Warna latar belakang default */
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 40px 60px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Efek bayangan yang elegan */
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+#tombolUbahWarna {
+    padding: 12px 25px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff; /* Warna tombol yang menarik */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s, transform 0.1s; /* Efek transisi tombol */
+}
+
+#tombolUbahWarna:hover {
+    background-color: #0056b3; /* Warna saat kursor di atas tombol */
+}
+
+#tombolUbahWarna:active {
+    transform: scale(0.98); /* Efek penekanan tombol */
+}
