@@ -1,51 +1,37 @@
-// Dapatkan elemen-elemen dari HTML
-const inputTugas = document.getElementById('inputTugas');
-const tombolTambah = document.getElementById('tombolTambah');
-const daftarTugas = document.getElementById('daftarTugas');
+// Dapatkan semua tombol dengan kelas 'ripple-button'
+const buttons = document.querySelectorAll('.ripple-button');
 
-// Tambahkan event listener untuk tombol "Tambah"
-tombolTambah.addEventListener('click', tambahTugas);
-
-// Tambahkan event listener untuk menekan tombol Enter pada input
-inputTugas.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        tambahTugas();
-    }
-});
-
-function tambahTugas() {
-    const teksTugas = inputTugas.value.trim();
-
-    // Pastikan input tidak kosong
-    if (teksTugas === "") {
-        alert("Mohon masukkan tugas terlebih dahulu!");
-        return;
-    }
-
-    // 1. Buat elemen <li> baru
-    const itemTugas = document.createElement('li');
-    itemTugas.innerHTML = `
-        <span>${teksTugas}</span>
-        <button class="tombolHapus">Hapus</button>
-    `;
-
-    // 2. Tambahkan event listener untuk menandai selesai (klik pada item)
-    itemTugas.addEventListener('click', function(e) {
-        // Hanya toggle kelas jika yang diklik BUKAN tombol hapus
-        if (e.target.tagName !== 'BUTTON') {
-            itemTugas.classList.toggle('selesai');
+buttons.forEach(button => {
+    button.addEventListener('click', function(e) {
+        // 1. Hapus elemen gelombang yang mungkin masih ada
+        const existingRipple = this.querySelector('.ripple-span');
+        if (existingRipple) {
+            existingRipple.remove();
         }
+
+        // 2. Hitung posisi klik relatif terhadap tombol
+        const rect = this.getBoundingClientRect(); // Posisi tombol
+        const x = e.clientX - rect.left; // Posisi X relatif terhadap tombol
+        const y = e.clientY - rect.top; // Posisi Y relatif terhadap tombol
+
+        // 3. Buat elemen <span> baru untuk efek gelombang
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple-span');
+
+        // 4. Hitung ukuran gelombang (sebesar dimensi terpanjang tombol)
+        const size = Math.max(rect.width, rect.height);
+        
+        // Atur ukuran dan posisi gelombang
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (x - size / 2) + 'px'; // Posisikan di tengah klik
+        ripple.style.top = (y - size / 2) + 'px';  // Posisikan di tengah klik
+
+        // 5. Tambahkan elemen gelombang ke tombol
+        this.appendChild(ripple);
+
+        // Opsional: Hapus elemen gelombang setelah animasi selesai
+        ripple.addEventListener('animationend', () => {
+            ripple.remove();
+        });
     });
-
-    // 3. Tambahkan event listener untuk tombol "Hapus"
-    const tombolHapus = itemTugas.querySelector('.tombolHapus');
-    tombolHapus.addEventListener('click', function() {
-        daftarTugas.removeChild(itemTugas);
-    });
-
-    // 4. Masukkan item tugas ke dalam daftar
-    daftarTugas.appendChild(itemTugas);
-
-    // 5. Bersihkan input setelah ditambahkan
-    inputTugas.value = '';
-}
+});
