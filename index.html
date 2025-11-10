@@ -3,13 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tombol Efek Gelombang</title>
+    <title>Game Tebak Angka</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button class="ripple-button">
-        Klik Saya
-    </button>
+    <div class="container">
+        <h1>🎲 Game Tebak Angka 🎲</h1>
+        <p>Saya sudah memilih angka antara 1 dan 100. Coba tebak!</p>
+        
+        <div class="input-section">
+            <input type="number" id="guessInput" min="1" max="100" placeholder="Masukkan tebakan Anda">
+            <button onclick="checkGuess()">Tebak</button>
+        </div>
+
+        <p id="message"></p>
+        <p id="attempts">Kesempatan: 10</p>
+        
+        <button id="resetButton" onclick="resetGame()" style="display:none;">Mulai Ulang</button>
+    </div>
 
     <script src="script.js"></script>
 </body>
