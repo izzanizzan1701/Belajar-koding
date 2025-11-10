@@ -1,47 +1,82 @@
 body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* Light Blue */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
-    font-family: sans-serif;
 }
 
-.ripple-button {
-    /* Gaya Tombol Dasar */
-    background-color: #007bff;
-    color: white;
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.input-section {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+#guessInput {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    flex-grow: 1;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 15px;
     border: none;
-    padding: 15px 30px;
-    font-size: 1.2em;
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 8px;
-    overflow: hidden; /* **Penting:** untuk membatasi efek gelombang di dalam tombol */
-    
-    /* Mengatur posisi untuk elemen gelombang */
-    position: relative; 
-    z-index: 1; /* Pastikan tombol di atas efek */
+    font-weight: bold;
+    transition: background-color 0.3s;
+    font-size: 16px;
 }
 
-.ripple-button:focus {
-    outline: none; /* Hilangkan garis fokus bawaan */
+/* Tombol Tebak */
+.input-section button {
+    background-color: #4CAF50; /* Green */
+    color: white;
 }
 
-/* Gaya untuk elemen gelombang yang dibuat JS */
-.ripple-span {
-    position: absolute;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.7); /* Warna gelombang semi-transparan */
-    transform: scale(0); /* Mulai dari skala nol */
-    animation: ripple 0.6s linear; /* Terapkan animasi CSS */
-    z-index: 0; /* Pastikan gelombang di bawah teks tombol */
+.input-section button:hover {
+    background-color: #45a049;
 }
 
-/* Animasi CSS Keyframes */
-@keyframes ripple {
-    to {
-        transform: scale(4); /* Memperbesar gelombang */
-        opacity: 0; /* Menghilangkan gelombang */
-    }
+/* Tombol Mulai Ulang */
+#resetButton {
+    background-color: #008CBA; /* Blue */
+    color: white;
+    margin-top: 20px;
+}
+
+#resetButton:hover {
+    background-color: #007bb5;
+}
+
+/* Gaya untuk pesan */
+#message {
+    font-size: 1.1em;
+    font-weight: bold;
+    min-height: 20px; /* Untuk menghindari layout jumping */
 }
