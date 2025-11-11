@@ -1,37 +1,88 @@
-// Dapatkan semua tombol dengan kelas 'ripple-button'
-const buttons = document.querySelectorAll('.ripple-button');
+// Variabel Global
+let secretNumber;
+let attemptsLeft;
+const maxAttempts = 10;
 
-buttons.forEach(button => {
-    button.addEventListener('click', function(e) {
-        // 1. Hapus elemen gelombang yang mungkin masih ada
-        const existingRipple = this.querySelector('.ripple-span');
-        if (existingRipple) {
-            existingRipple.remove();
-        }
+// Ambil elemen DOM
+const guessInput = document.getElementById('guessInput');
+const messageDisplay = document.getElementById('message');
+const attemptsDisplay = document.getElementById('attempts');
+const resetButton = document.getElementById('resetButton');
+const guessButton = document.querySelector('.input-section button');
 
-        // 2. Hitung posisi klik relatif terhadap tombol
-        const rect = this.getBoundingClientRect(); // Posisi tombol
-        const x = e.clientX - rect.left; // Posisi X relatif terhadap tombol
-        const y = e.clientY - rect.top; // Posisi Y relatif terhadap tombol
+// Fungsi untuk memulai atau mereset permainan
+function resetGame() {
+    // 1. Pilih angka acak antara 1 dan 100
+    secretNumber = Math.floor(Math.random() * 100) + 1;
+    // 2. Set ulang kesempatan
+    attemptsLeft = maxAttempts;
 
-        // 3. Buat elemen <span> baru untuk efek gelombang
-        const ripple = document.createElement('span');
-        ripple.classList.add('ripple-span');
+    // 3. Update tampilan
+    attemptsDisplay.textContent = `Kesempatan: ${attemptsLeft}`;
+    messageDisplay.textContent = 'Game baru dimulai! Masukkan tebakan Anda.';
+    messageDisplay.style.color = '#555';
 
-        // 4. Hitung ukuran gelombang (sebesar dimensi terpanjang tombol)
-        const size = Math.max(rect.width, rect.height);
-        
-        // Atur ukuran dan posisi gelombang
-        ripple.style.width = ripple.style.height = size + 'px';
-        ripple.style.left = (x - size / 2) + 'px'; // Posisikan di tengah klik
-        ripple.style.top = (y - size / 2) + 'px';  // Posisikan di tengah klik
+    // 4. Reset input dan tombol
+    guessInput.value = '';
+    guessInput.disabled = false;
+    guessButton.disabled = false;
+    resetButton.style.display = 'none';
 
-        // 5. Tambahkan elemen gelombang ke tombol
-        this.appendChild(ripple);
+    console.log(`Angka Rahasia (untuk debugging): ${secretNumber}`);
+}
 
-        // Opsional: Hapus elemen gelombang setelah animasi selesai
-        ripple.addEventListener('animationend', () => {
-            ripple.remove();
-        });
-    });
-});
+// Fungsi untuk mengecek tebakan
+function checkGuess() {
+    const userGuess = parseInt(guessInput.value);
+
+    // Validasi input
+    if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+        messageDisplay.textContent = 'Tolong masukkan angka valid antara 1 dan 100.';
+        messageDisplay.style.color = 'orange';
+        return;
+    }
+
+    // Kurangi kesempatan
+    attemptsLeft--;
+    attemptsDisplay.textContent = `Kesempatan: ${attemptsLeft}`;
+
+    let message = '';
+    let color = '';
+
+    if (userGuess === secretNumber) {
+        // KONDISI MENANG
+        message = `🎉 SELAMAT! Anda benar! Angka rahasia adalah ${secretNumber}.`;
+        color = 'green';
+        endGame(true);
+    } else if (attemptsLeft === 0) {
+        // KONDISI KALAH
+        message = `❌ GAGAL! Kesempatan habis. Angka rahasia adalah ${secretNumber}.`;
+        color = 'red';
+        endGame(false);
+    } else if (userGuess < secretNumber) {
+        // Tebakan terlalu rendah
+        message = 'Terlalu rendah. Coba lagi!';
+        color = 'blue';
+    } else {
+        // Tebakan terlalu tinggi
+        message = 'Terlalu tinggi. Coba lagi!';
+        color = 'purple';
+    }
+    
+    // Tampilkan pesan
+    messageDisplay.textContent = message;
+    messageDisplay.style.color = color;
+
+    // Bersihkan input setelah tebakan
+    guessInput.value = '';
+}
+
+// Fungsi untuk mengakhiri permainan (Menang/Kalah)
+function endGame(isWinner) {
+    guessInput.disabled = true; // Nonaktifkan input
+    guessButton.disabled = true; // Nonaktifkan tombol tebak
+    resetButton.style.display = 'block'; // Tampilkan tombol Mulai Ulang
+}
+
+// Inisialisasi Game saat halaman dimuat
+resetGame();
